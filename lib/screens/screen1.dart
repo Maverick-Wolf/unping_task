@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:unping_task/providers/sign_up_provider.dart';
 import 'package:unping_task/theme.dart';
 
 class Screen1 extends StatelessWidget {
@@ -132,7 +134,8 @@ class Screen1 extends StatelessWidget {
                             width: 5.0,
                           ),
                           DropdownButton<String>(
-                              value: "Software Engineer",
+                              value:
+                                  context.watch<SignUpProvider>().dropdownvalue,
                               style: TextStyle(
                                   color: _theme.secondaryColor,
                                   fontFamily: _theme.font,
@@ -156,7 +159,11 @@ class Screen1 extends StatelessWidget {
                                 );
                               }).toList(),
                               dropdownColor: const Color(0xFF1F2029),
-                              onChanged: (newValue) {}),
+                              onChanged: (newValue) {
+                                context
+                                    .read<SignUpProvider>()
+                                    .setDropDownValue(newValue!);
+                              }),
                         ],
                       ),
                       InkWell(
