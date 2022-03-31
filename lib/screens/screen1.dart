@@ -5,8 +5,21 @@ class Screen1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double _width = MediaQuery.of(context).size.width;
+    double _height = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Container(color: Colors.green,),
+      body: Stack(
+        children: [
+          SizedBox(
+            width: _width,
+            height: _height,
+            child: Image.asset(
+              'assets/images/background.png',
+              fit: BoxFit.cover,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
