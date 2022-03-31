@@ -19,6 +19,14 @@ class Screen1 extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(15.0, 20.0, 0.0, 0.0),
+          child: Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: _theme.primaryColor,
+            size: 35.0,
+          ),
+        ),
         Align(
           alignment: Alignment.center,
           child: SizedBox(
@@ -40,7 +48,7 @@ class Screen1 extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(
-                        "Log In",
+                        "Sign In",
                         style: TextStyle(
                             color: _theme.secondaryColor,
                             fontFamily: _theme.font,
@@ -148,9 +156,32 @@ class Screen1 extends StatelessWidget {
                                 );
                               }).toList(),
                               dropdownColor: const Color(0xFF1F2029),
-                              onChanged: (newValue) {})
+                              onChanged: (newValue) {}),
                         ],
-                      )
+                      ),
+                      InkWell(
+                        onTap: () {},
+                        child: Container(
+                          width: _width * 0.05,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15.0),
+                            color: _theme.primaryColor,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                              child: Text(
+                                'Next',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: _theme.font,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18.0),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
