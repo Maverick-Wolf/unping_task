@@ -18,6 +18,21 @@ class Screen1 extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
+          Stack(
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: SizedBox(
+                  height: _height * 0.6,
+                  width: _width * 0.3,
+                  child: Image.asset(
+                    'assets/images/card.jpg',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
