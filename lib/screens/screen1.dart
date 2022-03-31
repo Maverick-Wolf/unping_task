@@ -66,6 +66,11 @@ class Screen1 extends StatelessWidget {
                           padding:
                               const EdgeInsets.fromLTRB(10.0, 0.0, 5.0, 0.0),
                           child: TextField(
+                            onChanged: (value) {
+                              context
+                                  .read<SignUpProvider>()
+                                  .setFirstName(value);
+                            },
                             cursorColor: Colors.white,
                             style: const TextStyle(color: Colors.white),
                             decoration: InputDecoration(
@@ -97,6 +102,9 @@ class Screen1 extends StatelessWidget {
                           padding:
                               const EdgeInsets.fromLTRB(10.0, 0.0, 5.0, 0.0),
                           child: TextField(
+                            onChanged: (value) {
+                              context.read<SignUpProvider>().setLastName(value);
+                            },
                             cursorColor: Colors.white,
                             style: const TextStyle(color: Colors.white),
                             decoration: InputDecoration(
@@ -155,7 +163,9 @@ class Screen1 extends StatelessWidget {
                               ].map<DropdownMenuItem<String>>((String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
-                                  child: Text(value),
+                                  child: Text(
+                                    value,
+                                  ),
                                 );
                               }).toList(),
                               dropdownColor: const Color(0xFF1F2029),
