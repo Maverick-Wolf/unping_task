@@ -7,15 +7,13 @@ import 'package:unping_task/screens/screen2.dart';
 void main() {
   runApp(
     MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => SignUpProvider())
-      ],
+      providers: [ChangeNotifierProvider(create: (_) => SignUpProvider())],
       child: MaterialApp(
-      debugShowCheckedModeBanner: false,
-      routes: {
-        '/': (context) => const Screen2(),
-      },
-    ),
+        debugShowCheckedModeBanner: false,
+        routes: {
+          '/': (context) => const Screen2(),
+        },
       ),
+    ),
   );
 }

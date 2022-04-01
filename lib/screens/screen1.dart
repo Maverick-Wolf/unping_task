@@ -143,7 +143,7 @@ class Screen1 extends StatelessWidget {
                           ),
                           DropdownButton<String>(
                               value:
-                                  context.watch<SignUpProvider>().dropdownvalue,
+                                  context.watch<SignUpProvider>().roleincompany,
                               style: TextStyle(
                                   color: _theme.secondaryColor,
                                   fontFamily: _theme.font,
@@ -172,7 +172,7 @@ class Screen1 extends StatelessWidget {
                               onChanged: (newValue) {
                                 context
                                     .read<SignUpProvider>()
-                                    .setDropDownValue(newValue!);
+                                    .setRoleInCompany(newValue!);
                               }),
                         ],
                       ),

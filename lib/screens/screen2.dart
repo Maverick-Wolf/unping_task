@@ -113,6 +113,9 @@ class Screen2 extends StatelessWidget {
                             },
                             cursorColor: Colors.white,
                             style: const TextStyle(color: Colors.white),
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(RegExp("[0-9]"))
+                            ],
                             decoration: InputDecoration(
                                 border: InputBorder.none,
                                 focusedBorder: InputBorder.none,
@@ -137,7 +140,7 @@ class Screen2 extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Role in Company: ",
+                            "Industry: ",
                             style: TextStyle(
                                 color: _theme.secondaryColor,
                                 fontFamily: _theme.font,
@@ -148,8 +151,7 @@ class Screen2 extends StatelessWidget {
                             width: 5.0,
                           ),
                           DropdownButton<String>(
-                              value:
-                                  context.watch<SignUpProvider>().dropdownvalue,
+                              value: context.watch<SignUpProvider>().industry,
                               style: TextStyle(
                                   color: _theme.secondaryColor,
                                   fontFamily: _theme.font,
@@ -161,11 +163,12 @@ class Screen2 extends StatelessWidget {
                                 size: 22.0,
                               ),
                               items: <String>[
-                                'Software Engineer',
-                                'HR Manager',
-                                'General Manager',
-                                'Technology Manager',
-                                'Product Manager',
+                                'Computer Industry',
+                                'Aerospace Industry',
+                                'Transport Industry',
+                                'Agriculture industry',
+                                'Education Industry',
+                                'Health Care Industry'
                               ].map<DropdownMenuItem<String>>((String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
@@ -178,7 +181,7 @@ class Screen2 extends StatelessWidget {
                               onChanged: (newValue) {
                                 context
                                     .read<SignUpProvider>()
-                                    .setDropDownValue(newValue!);
+                                    .setIndustry(newValue!);
                               }),
                         ],
                       ),
