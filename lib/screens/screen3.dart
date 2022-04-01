@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:unping_task/providers/sign_up_provider.dart';
 import 'package:unping_task/theme.dart';
 
-class Screen2 extends StatelessWidget {
-  const Screen2({Key? key}) : super(key: key);
+class Screen3 extends StatelessWidget {
+  const Screen3({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     double _width = MediaQuery.of(context).size.width;
@@ -70,30 +70,26 @@ class Screen2 extends StatelessWidget {
                           padding:
                               const EdgeInsets.fromLTRB(10.0, 0.0, 5.0, 0.0),
                           child: TextFormField(
-                            initialValue: context.watch<SignUpProvider>().teamname,
+                            initialValue: context.watch<SignUpProvider>().housenumber,
                             onChanged: (value) {
-                              context.read<SignUpProvider>().setTeamName(value);
+                              context
+                                  .read<SignUpProvider>()
+                                  .setHouseNumber(value);
                             },
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(
-                                  RegExp("[0-9a-zA-Z]"))
-                            ],
                             cursorColor: Colors.white,
                             style: const TextStyle(color: Colors.white),
-                            maxLength: 10,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
-                                counterText: "",
                                 focusedBorder: InputBorder.none,
                                 enabledBorder: InputBorder.none,
                                 errorBorder: InputBorder.none,
                                 disabledBorder: InputBorder.none,
                                 prefixIcon: Icon(
-                                  Icons.person_pin_circle_outlined,
+                                  Icons.home,
                                   size: 27.0,
                                   color: _theme.primaryColor,
                                 ),
-                                labelText: "Team Name",
+                                labelText: "House Number",
                                 labelStyle: TextStyle(
                                     color: const Color(0xFF909097),
                                     fontWeight: FontWeight.w600,
@@ -111,15 +107,14 @@ class Screen2 extends StatelessWidget {
                           padding:
                               const EdgeInsets.fromLTRB(10.0, 0.0, 5.0, 0.0),
                           child: TextFormField(
-                            initialValue: context.watch<SignUpProvider>().teamsize,
+                            initialValue: context.watch<SignUpProvider>().streetaddress,
                             onChanged: (value) {
-                              context.read<SignUpProvider>().setTeamSize(value);
+                              context
+                                  .read<SignUpProvider>()
+                                  .setStreetAddress(value);
                             },
                             cursorColor: Colors.white,
                             style: const TextStyle(color: Colors.white),
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(RegExp("[0-9]"))
-                            ],
                             decoration: InputDecoration(
                                 border: InputBorder.none,
                                 focusedBorder: InputBorder.none,
@@ -127,11 +122,11 @@ class Screen2 extends StatelessWidget {
                                 errorBorder: InputBorder.none,
                                 disabledBorder: InputBorder.none,
                                 prefixIcon: Icon(
-                                  Icons.people_outline,
+                                  Icons.home,
                                   size: 27.0,
                                   color: _theme.primaryColor,
                                 ),
-                                labelText: "Team Size",
+                                labelText: "Street Address",
                                 labelStyle: TextStyle(
                                     color: const Color(0xFF909097),
                                     fontWeight: FontWeight.w600,
@@ -143,56 +138,85 @@ class Screen2 extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            "Industry: ",
-                            style: TextStyle(
-                                color: _theme.secondaryColor,
-                                fontFamily: _theme.font,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 15.0),
-                          ),
-                          const SizedBox(
-                            width: 5.0,
-                          ),
-                          DropdownButton<String>(
-                              value: context.watch<SignUpProvider>().industry,
-                              style: TextStyle(
-                                  color: _theme.secondaryColor,
-                                  fontFamily: _theme.font,
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w600),
-                              icon: Icon(
-                                Icons.keyboard_arrow_down_rounded,
-                                color: _theme.primaryColor,
-                                size: 22.0,
+                          Container(
+                            width: _width * 0.11,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                color: const Color(0xFF1F2029)),
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(
+                                  10.0, 0.0, 5.0, 0.0),
+                              child: TextFormField(
+                                initialValue: context.watch<SignUpProvider>().city,
+                                onChanged: (value) {
+                                  context.read<SignUpProvider>().setCity(value);
+                                },
+                                cursorColor: Colors.white,
+                                style: const TextStyle(color: Colors.white),
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    errorBorder: InputBorder.none,
+                                    disabledBorder: InputBorder.none,
+                                    prefixIcon: Icon(
+                                      Icons.location_city_outlined,
+                                      size: 27.0,
+                                      color: _theme.primaryColor,
+                                    ),
+                                    labelText: "City",
+                                    labelStyle: TextStyle(
+                                        color: const Color(0xFF909097),
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16.0,
+                                        fontFamily: _theme.font)),
                               ),
-                              items: <String>[
-                                'Computer Industry',
-                                'Aerospace Industry',
-                                'Transport Industry',
-                                'Agriculture industry',
-                                'Education Industry',
-                                'Health Care Industry'
-                              ].map<DropdownMenuItem<String>>((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(
-                                    value,
-                                  ),
-                                );
-                              }).toList(),
-                              dropdownColor: const Color(0xFF1F2029),
-                              onChanged: (newValue) {
-                                context
-                                    .read<SignUpProvider>()
-                                    .setIndustry(newValue!);
-                              }),
+                            ),
+                          ),
+                          SizedBox(
+                            width: _width * 0.01,
+                          ),
+                          Container(
+                            width: _width * 0.11,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                color: const Color(0xFF1F2029)),
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(
+                                  10.0, 0.0, 5.0, 0.0),
+                              child: TextFormField(
+                                initialValue: context.watch<SignUpProvider>().zipcode,
+                                onChanged: (value) {
+                                  context
+                                      .read<SignUpProvider>()
+                                      .setZipcode(value);
+                                },
+                                cursorColor: Colors.white,
+                                style: const TextStyle(color: Colors.white),
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    errorBorder: InputBorder.none,
+                                    disabledBorder: InputBorder.none,
+                                    prefixIcon: Icon(
+                                      Icons.local_post_office_outlined,
+                                      size: 27.0,
+                                      color: _theme.primaryColor,
+                                    ),
+                                    labelText: "Zipcode",
+                                    labelStyle: TextStyle(
+                                        color: const Color(0xFF909097),
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16.0,
+                                        fontFamily: _theme.font)),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                       InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, '/screen3');
-                        },
+                        onTap: () {},
                         child: Container(
                           width: _width * 0.05,
                           decoration: BoxDecoration(

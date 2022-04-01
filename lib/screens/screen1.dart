@@ -21,14 +21,6 @@ class Screen1 extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(15.0, 20.0, 0.0, 0.0),
-          child: Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: _theme.primaryColor,
-            size: 35.0,
-          ),
-        ),
         Align(
           alignment: Alignment.center,
           child: SizedBox(
@@ -65,7 +57,8 @@ class Screen1 extends StatelessWidget {
                         child: Padding(
                           padding:
                               const EdgeInsets.fromLTRB(10.0, 0.0, 5.0, 0.0),
-                          child: TextField(
+                          child: TextFormField(
+                            initialValue: context.watch<SignUpProvider>().firstname,
                             onChanged: (value) {
                               context
                                   .read<SignUpProvider>()
@@ -81,7 +74,7 @@ class Screen1 extends StatelessWidget {
                                 disabledBorder: InputBorder.none,
                                 prefixIcon: Icon(
                                   Icons.person_outline,
-                                  size: 30.0,
+                                  size: 27.0,
                                   color: _theme.primaryColor,
                                 ),
                                 labelText: "First Name",
@@ -101,7 +94,8 @@ class Screen1 extends StatelessWidget {
                         child: Padding(
                           padding:
                               const EdgeInsets.fromLTRB(10.0, 0.0, 5.0, 0.0),
-                          child: TextField(
+                          child: TextFormField(
+                            initialValue: context.watch<SignUpProvider>().lastname,
                             onChanged: (value) {
                               context.read<SignUpProvider>().setLastName(value);
                             },
@@ -115,7 +109,7 @@ class Screen1 extends StatelessWidget {
                                 disabledBorder: InputBorder.none,
                                 prefixIcon: Icon(
                                   Icons.person_outline,
-                                  size: 30.0,
+                                  size: 27.0,
                                   color: _theme.primaryColor,
                                 ),
                                 labelText: "Last Name",
@@ -177,7 +171,9 @@ class Screen1 extends StatelessWidget {
                         ],
                       ),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, "/screen2");
+                        },
                         child: Container(
                           width: _width * 0.05,
                           decoration: BoxDecoration(
