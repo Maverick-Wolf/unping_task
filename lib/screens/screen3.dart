@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:unping_task/providers/sign_up_provider.dart';
 import 'package:unping_task/theme.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Screen3 extends StatelessWidget {
   const Screen3({Key? key}) : super(key: key);
@@ -25,7 +28,7 @@ class Screen3 extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(15.0, 20.0, 0.0, 0.0),
           child: IconButton(
               onPressed: () {
-                Navigator.pop(context);
+                Get.back();
               },
               icon: Icon(
                 Icons.arrow_back_ios_new_rounded,
@@ -70,7 +73,8 @@ class Screen3 extends StatelessWidget {
                           padding:
                               const EdgeInsets.fromLTRB(10.0, 0.0, 5.0, 0.0),
                           child: TextFormField(
-                            initialValue: context.watch<SignUpProvider>().housenumber,
+                            initialValue:
+                                context.watch<SignUpProvider>().housenumber,
                             onChanged: (value) {
                               context
                                   .read<SignUpProvider>()
@@ -107,7 +111,8 @@ class Screen3 extends StatelessWidget {
                           padding:
                               const EdgeInsets.fromLTRB(10.0, 0.0, 5.0, 0.0),
                           child: TextFormField(
-                            initialValue: context.watch<SignUpProvider>().streetaddress,
+                            initialValue:
+                                context.watch<SignUpProvider>().streetaddress,
                             onChanged: (value) {
                               context
                                   .read<SignUpProvider>()
@@ -147,7 +152,8 @@ class Screen3 extends StatelessWidget {
                               padding: const EdgeInsets.fromLTRB(
                                   10.0, 0.0, 5.0, 0.0),
                               child: TextFormField(
-                                initialValue: context.watch<SignUpProvider>().city,
+                                initialValue:
+                                    context.watch<SignUpProvider>().city,
                                 onChanged: (value) {
                                   context.read<SignUpProvider>().setCity(value);
                                 },
@@ -185,7 +191,8 @@ class Screen3 extends StatelessWidget {
                               padding: const EdgeInsets.fromLTRB(
                                   10.0, 0.0, 5.0, 0.0),
                               child: TextFormField(
-                                initialValue: context.watch<SignUpProvider>().zipcode,
+                                initialValue:
+                                    context.watch<SignUpProvider>().zipcode,
                                 onChanged: (value) {
                                   context
                                       .read<SignUpProvider>()
@@ -216,7 +223,61 @@ class Screen3 extends StatelessWidget {
                         ],
                       ),
                       InkWell(
-                        onTap: () {},
+                        onTap: () async {
+                          var body = json.encode({
+                            'data': [
+                              {
+                                "uniqueUserID": {
+                                  "firstname": Provider.of<SignUpProvider>(
+                                          context,
+                                          listen: false)
+                                      .firstname,
+                                  "lastname": Provider.of<SignUpProvider>(
+                                          context,
+                                          listen: false)
+                                      .lastname
+                                      .toString(),
+                                  "role": Provider.of<SignUpProvider>(context,
+                                          listen: false)
+                                      .roleincompany,
+                                  "teamname": Provider.of<SignUpProvider>(
+                                          context,
+                                          listen: false)
+                                      .teamname,
+                                  "teamsize": Provider.of<SignUpProvider>(
+                                          context,
+                                          listen: false)
+                                      .teamsize,
+                                  "industry": Provider.of<SignUpProvider>(
+                                          context,
+                                          listen: false)
+                                      .industry,
+                                  "housenumber": Provider.of<SignUpProvider>(
+                                          context,
+                                          listen: false)
+                                      .housenumber,
+                                  "streetaddress": Provider.of<SignUpProvider>(
+                                          context,
+                                          listen: false)
+                                      .streetaddress,
+                                  "city": Provider.of<SignUpProvider>(context,
+                                          listen: false)
+                                      .city,
+                                  "zipcode": Provider.of<SignUpProvider>(
+                                          context,
+                                          listen: false)
+                                      .zipcode,
+                                }
+                              }
+                            ]
+                          });
+                          var response = await http.post(
+                              Uri.parse(
+                                  'https://jsonplaceholder.typicode.com/posts'),
+                              body: body,
+                              headers: {'Content-type': 'application/json'});
+                          print(response.body);
+                        },
                         child: Container(
                           width: _width * 0.05,
                           decoration: BoxDecoration(

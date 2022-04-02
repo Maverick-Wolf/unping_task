@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:unping_task/providers/sign_up_provider.dart';
 import 'package:unping_task/theme.dart';
@@ -25,7 +26,7 @@ class Screen2 extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(15.0, 20.0, 0.0, 0.0),
           child: IconButton(
               onPressed: () {
-                Navigator.pop(context);
+                Get.back();
               },
               icon: Icon(
                 Icons.arrow_back_ios_new_rounded,
@@ -70,7 +71,8 @@ class Screen2 extends StatelessWidget {
                           padding:
                               const EdgeInsets.fromLTRB(10.0, 0.0, 5.0, 0.0),
                           child: TextFormField(
-                            initialValue: context.watch<SignUpProvider>().teamname,
+                            initialValue:
+                                context.watch<SignUpProvider>().teamname,
                             onChanged: (value) {
                               context.read<SignUpProvider>().setTeamName(value);
                             },
@@ -111,7 +113,8 @@ class Screen2 extends StatelessWidget {
                           padding:
                               const EdgeInsets.fromLTRB(10.0, 0.0, 5.0, 0.0),
                           child: TextFormField(
-                            initialValue: context.watch<SignUpProvider>().teamsize,
+                            initialValue:
+                                context.watch<SignUpProvider>().teamsize,
                             onChanged: (value) {
                               context.read<SignUpProvider>().setTeamSize(value);
                             },
@@ -191,7 +194,7 @@ class Screen2 extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, '/screen3');
+                          Get.toNamed('/screen3');
                         },
                         child: Container(
                           width: _width * 0.05,

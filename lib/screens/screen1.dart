@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:unping_task/providers/sign_up_provider.dart';
+import 'package:unping_task/screens/screen2.dart';
 import 'package:unping_task/theme.dart';
+import 'package:get/get.dart';
 
 class Screen1 extends StatelessWidget {
   const Screen1({Key? key}) : super(key: key);
@@ -58,7 +60,8 @@ class Screen1 extends StatelessWidget {
                           padding:
                               const EdgeInsets.fromLTRB(10.0, 0.0, 5.0, 0.0),
                           child: TextFormField(
-                            initialValue: context.watch<SignUpProvider>().firstname,
+                            initialValue:
+                                context.watch<SignUpProvider>().firstname,
                             onChanged: (value) {
                               context
                                   .read<SignUpProvider>()
@@ -95,7 +98,8 @@ class Screen1 extends StatelessWidget {
                           padding:
                               const EdgeInsets.fromLTRB(10.0, 0.0, 5.0, 0.0),
                           child: TextFormField(
-                            initialValue: context.watch<SignUpProvider>().lastname,
+                            initialValue:
+                                context.watch<SignUpProvider>().lastname,
                             onChanged: (value) {
                               context.read<SignUpProvider>().setLastName(value);
                             },
@@ -172,7 +176,7 @@ class Screen1 extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, "/screen2");
+                          Get.toNamed('/screen2');
                         },
                         child: Container(
                           width: _width * 0.05,

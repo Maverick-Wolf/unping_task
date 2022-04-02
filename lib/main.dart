@@ -1,6 +1,5 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:unping_task/providers/sign_up_provider.dart';
 import 'package:unping_task/screens/screen1.dart';
@@ -11,13 +10,22 @@ void main() {
   runApp(
     MultiProvider(
       providers: [ChangeNotifierProvider(create: (_) => SignUpProvider())],
-      child: MaterialApp(
+      child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        routes: {
-          '/': (context) => const Screen1(),
-          '/screen2': (context) => const Screen2(),
-          '/screen3': (context) => const Screen3()
-        },
+        initialRoute: '/',
+        getPages: [
+          GetPage(name: '/', page: () => const Screen1()),
+          GetPage(
+              name: '/screen2',
+              page: () => const Screen2(),
+              transition: Transition.zoom,
+              transitionDuration: const Duration(milliseconds: 500)),
+          GetPage(
+              name: '/screen3',
+              page: () => const Screen3(),
+              transition: Transition.rightToLeftWithFade,
+              transitionDuration: const Duration(milliseconds: 500)),
+        ],
       ),
     ),
   );
