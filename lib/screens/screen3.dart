@@ -260,7 +260,10 @@ class Screen3 extends StatelessWidget {
                                   'https://jsonplaceholder.typicode.com/posts'),
                               body: body,
                               headers: {'Content-type': 'application/json'});
-                          print(response.body);
+                          if(response.statusCode == 201){
+                            Get.offAllNamed("/screen4");
+
+                          }
                         },
                         child: Container(
                           width: _width * 0.05,
