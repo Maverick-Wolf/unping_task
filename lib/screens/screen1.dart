@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:unping_task/providers/sign_up_provider.dart';
-import 'package:unping_task/screens/screen2.dart';
 import 'package:unping_task/theme.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class Screen1 extends StatelessWidget {
   const Screen1({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var box = Hive.box('dataBox');
+    String? _firstName = box.get('firstName');
+    String? _lastName = box.get('lastName');
     double _width = MediaQuery.of(context).size.width;
     double _height = MediaQuery.of(context).size.height;
     OurTheme _theme = OurTheme();
@@ -60,11 +64,11 @@ class Screen1 extends StatelessWidget {
                           padding:
                               const EdgeInsets.fromLTRB(10.0, 0.0, 5.0, 0.0),
                           child: TextFormField(
-                            initialValue:
+                            initialValue: _firstName??
                                 context.watch<SignUpProvider>().firstname,
                             onChanged: (value) {
-                              context
-                                  .read<SignUpProvider>()
+                              Provider.of<SignUpProvider>(context,
+                                      listen: false)
                                   .setFirstName(value);
                             },
                             cursorColor: Colors.white,
@@ -98,10 +102,11 @@ class Screen1 extends StatelessWidget {
                           padding:
                               const EdgeInsets.fromLTRB(10.0, 0.0, 5.0, 0.0),
                           child: TextFormField(
-                            initialValue:
+                            initialValue: _lastName ??
                                 context.watch<SignUpProvider>().lastname,
                             onChanged: (value) {
-                              context.read<SignUpProvider>().setLastName(value);
+                              Provider.of<SignUpProvider>(context,
+                                  listen: false).setLastName(value);
                             },
                             cursorColor: Colors.white,
                             style: const TextStyle(color: Colors.white),
@@ -140,7 +145,7 @@ class Screen1 extends StatelessWidget {
                             width: 5.0,
                           ),
                           DropdownButton<String>(
-                              value:
+                              value: box.get('role') ??
                                   context.watch<SignUpProvider>().roleincompany,
                               style: TextStyle(
                                   color: _theme.secondaryColor,
@@ -168,15 +173,28 @@ class Screen1 extends StatelessWidget {
                               }).toList(),
                               dropdownColor: const Color(0xFF1F2029),
                               onChanged: (newValue) {
-                                context
-                                    .read<SignUpProvider>()
+                                Provider.of<SignUpProvider>(context,
+                                        listen: false)
                                     .setRoleInCompany(newValue!);
                               }),
                         ],
                       ),
                       InkWell(
                         onTap: () {
+                          SignUpProvider _provider =
+                              Provider.of<SignUpProvider>(context,
+                                  listen: false);
                           Get.toNamed('/screen2');
+                          box.put(
+                              'firstName',
+                              _provider.firstname.isEmpty
+                                  ? _firstName
+                                  : _provider.firstname);
+                          box.put(
+                              'lastName',
+                              _provider.lastname.isEmpty
+                                  ? _lastName
+                                  : _provider.lastname);
                         },
                         child: Container(
                           width: _width * 0.05,

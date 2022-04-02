@@ -4,11 +4,16 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:unping_task/providers/sign_up_provider.dart';
 import 'package:unping_task/theme.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class Screen2 extends StatelessWidget {
   const Screen2({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    var box = Hive.box('dataBox');
+    String? _teamSize = box.get('teamSize');
+    String? _teamName = box.get('teamName');
     double _width = MediaQuery.of(context).size.width;
     double _height = MediaQuery.of(context).size.height;
     OurTheme _theme = OurTheme();
@@ -71,7 +76,7 @@ class Screen2 extends StatelessWidget {
                           padding:
                               const EdgeInsets.fromLTRB(10.0, 0.0, 5.0, 0.0),
                           child: TextFormField(
-                            initialValue:
+                            initialValue: _teamName ??
                                 context.watch<SignUpProvider>().teamname,
                             onChanged: (value) {
                               context.read<SignUpProvider>().setTeamName(value);
@@ -113,7 +118,7 @@ class Screen2 extends StatelessWidget {
                           padding:
                               const EdgeInsets.fromLTRB(10.0, 0.0, 5.0, 0.0),
                           child: TextFormField(
-                            initialValue:
+                            initialValue: _teamSize ??
                                 context.watch<SignUpProvider>().teamsize,
                             onChanged: (value) {
                               context.read<SignUpProvider>().setTeamSize(value);
@@ -194,7 +199,12 @@ class Screen2 extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
+                          SignUpProvider _provider =
+                              Provider.of<SignUpProvider>(context,
+                                  listen: false);
                           Get.toNamed('/screen3');
+                          box.put('teamName', _provider.teamname.isEmpty ? _teamName : _provider.teamname);
+                          box.put('teamSize', _provider.teamsize.isEmpty ? _teamSize : _provider.teamsize);
                         },
                         child: Container(
                           width: _width * 0.05,

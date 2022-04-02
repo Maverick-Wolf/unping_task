@@ -5,8 +5,13 @@ import 'package:unping_task/providers/sign_up_provider.dart';
 import 'package:unping_task/screens/screen1.dart';
 import 'package:unping_task/screens/screen2.dart';
 import 'package:unping_task/screens/screen3.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  var box = await Hive.openBox('dataBox');
   runApp(
     MultiProvider(
       providers: [ChangeNotifierProvider(create: (_) => SignUpProvider())],

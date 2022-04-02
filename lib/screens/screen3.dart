@@ -6,12 +6,19 @@ import 'package:unping_task/providers/sign_up_provider.dart';
 import 'package:unping_task/theme.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class Screen3 extends StatelessWidget {
   const Screen3({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var box = Hive.box('dataBox');
+    String? _houseNumber = box.get('houseNumber');
+    String? _streetAddress = box.get('streetAddress');
+    String? _city = box.get('city');
+    String? _zipcode = box.get('zipcode');
     double _width = MediaQuery.of(context).size.width;
     double _height = MediaQuery.of(context).size.height;
     OurTheme _theme = OurTheme();
@@ -74,7 +81,7 @@ class Screen3 extends StatelessWidget {
                           padding:
                               const EdgeInsets.fromLTRB(10.0, 0.0, 5.0, 0.0),
                           child: TextFormField(
-                            initialValue:
+                            initialValue: _houseNumber ??
                                 context.watch<SignUpProvider>().housenumber,
                             onChanged: (value) {
                               context
@@ -112,7 +119,7 @@ class Screen3 extends StatelessWidget {
                           padding:
                               const EdgeInsets.fromLTRB(10.0, 0.0, 5.0, 0.0),
                           child: TextFormField(
-                            initialValue:
+                            initialValue: _streetAddress ??
                                 context.watch<SignUpProvider>().streetaddress,
                             onChanged: (value) {
                               context
@@ -153,7 +160,7 @@ class Screen3 extends StatelessWidget {
                               padding: const EdgeInsets.fromLTRB(
                                   10.0, 0.0, 5.0, 0.0),
                               child: TextFormField(
-                                initialValue:
+                                initialValue: _city ??
                                     context.watch<SignUpProvider>().city,
                                 onChanged: (value) {
                                   context.read<SignUpProvider>().setCity(value);
@@ -192,7 +199,7 @@ class Screen3 extends StatelessWidget {
                               padding: const EdgeInsets.fromLTRB(
                                   10.0, 0.0, 5.0, 0.0),
                               child: TextFormField(
-                                initialValue:
+                                initialValue: _zipcode ??
                                     context.watch<SignUpProvider>().zipcode,
                                 onChanged: (value) {
                                   context
@@ -225,34 +232,27 @@ class Screen3 extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () async {
-                          SignUpProvider _provider = Provider.of<SignUpProvider>(context, listen: false);
+                          SignUpProvider _provider =
+                              Provider.of<SignUpProvider>(context,
+                                  listen: false);
+                          box.put('houseNumber', _provider.housenumber.isEmpty ? _houseNumber : _provider.housenumber);
+                          box.put('streetAddress', _provider.streetaddress.isEmpty ? _streetAddress : _provider.streetaddress);
+                          box.put('city', _provider.city.isEmpty ? _city : _provider.city);
+                          box.put('zipcode', _provider.zipcode.isEmpty ? _zipcode : _provider.zipcode);
                           SignUpBody _userBody = SignUpBody(
-                              firstname: _provider
-                                  .firstname,
-                              lastname: _provider
-                                  .lastname,
-                              role: _provider
-                                  .roleincompany,
-                              teamname: _provider
-                                  .teamname,
-                              teamsize: _provider
-                                  .teamsize,
-                              industry:
-                                  _provider
-                                      .industry,
-                              housenumber:
-                                  _provider
-                                      .housenumber,
-                              streetaddress:
-                                  _provider
-                                      .streetaddress,
+                              firstname: _provider.firstname,
+                              lastname: _provider.lastname,
+                              role: _provider.roleincompany,
+                              teamname: _provider.teamname,
+                              teamsize: _provider.teamsize,
+                              industry: _provider.industry,
+                              housenumber: _provider.housenumber,
+                              streetaddress: _provider.streetaddress,
                               city: _provider.city,
                               zipcode: _provider.zipcode);
                           var body = json.encode({
                             'data': [
-                              {
-                                "uniqueUserID": _userBody
-                              }
+                              {"uniqueUserID": _userBody}
                             ]
                           });
                           var response = await http.post(

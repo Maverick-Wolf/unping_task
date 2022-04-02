@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SignUpProvider with ChangeNotifier {
-  String _roleInCompany = "Software Engineer";
+  String _roleInCompany =  "Software Engineer";
   String _firstName = "";
   String _lastName = "";
   String _teamName = "";
@@ -51,18 +51,22 @@ class SignUpProvider with ChangeNotifier {
     _industry = value;
     notifyListeners();
   }
+
   void setHouseNumber(String value) {
     _houseNumber = value;
     notifyListeners();
   }
+
   void setStreetAddress(String value) {
     _streetAddress = value;
     notifyListeners();
   }
+
   void setCity(String value) {
     _city = value;
     notifyListeners();
   }
+
   void setZipcode(String value) {
     _zipcode = value;
     notifyListeners();
