@@ -19,7 +19,7 @@ void main() {
               name: '/screen2',
               page: () => const Screen2(),
               transition: Transition.zoom,
-              transitionDuration: const Duration(milliseconds: 500)),
+              transitionDuration: const Duration(milliseconds: 400)),
           GetPage(
               name: '/screen3',
               page: () => const Screen3(),

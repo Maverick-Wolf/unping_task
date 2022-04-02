@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:unping_task/models/signup_model.dart';
 import 'package:unping_task/providers/sign_up_provider.dart';
 import 'package:unping_task/theme.dart';
 import 'package:http/http.dart' as http;
@@ -224,50 +225,33 @@ class Screen3 extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () async {
+                          SignUpProvider _provider = Provider.of<SignUpProvider>(context, listen: false);
+                          SignUpBody _userBody = SignUpBody(
+                              firstname: _provider
+                                  .firstname,
+                              lastname: _provider
+                                  .lastname,
+                              role: _provider
+                                  .roleincompany,
+                              teamname: _provider
+                                  .teamname,
+                              teamsize: _provider
+                                  .teamsize,
+                              industry:
+                                  _provider
+                                      .industry,
+                              housenumber:
+                                  _provider
+                                      .housenumber,
+                              streetaddress:
+                                  _provider
+                                      .streetaddress,
+                              city: _provider.city,
+                              zipcode: _provider.zipcode);
                           var body = json.encode({
                             'data': [
                               {
-                                "uniqueUserID": {
-                                  "firstname": Provider.of<SignUpProvider>(
-                                          context,
-                                          listen: false)
-                                      .firstname,
-                                  "lastname": Provider.of<SignUpProvider>(
-                                          context,
-                                          listen: false)
-                                      .lastname
-                                      .toString(),
-                                  "role": Provider.of<SignUpProvider>(context,
-                                          listen: false)
-                                      .roleincompany,
-                                  "teamname": Provider.of<SignUpProvider>(
-                                          context,
-                                          listen: false)
-                                      .teamname,
-                                  "teamsize": Provider.of<SignUpProvider>(
-                                          context,
-                                          listen: false)
-                                      .teamsize,
-                                  "industry": Provider.of<SignUpProvider>(
-                                          context,
-                                          listen: false)
-                                      .industry,
-                                  "housenumber": Provider.of<SignUpProvider>(
-                                          context,
-                                          listen: false)
-                                      .housenumber,
-                                  "streetaddress": Provider.of<SignUpProvider>(
-                                          context,
-                                          listen: false)
-                                      .streetaddress,
-                                  "city": Provider.of<SignUpProvider>(context,
-                                          listen: false)
-                                      .city,
-                                  "zipcode": Provider.of<SignUpProvider>(
-                                          context,
-                                          listen: false)
-                                      .zipcode,
-                                }
+                                "uniqueUserID": _userBody
                               }
                             ]
                           });
