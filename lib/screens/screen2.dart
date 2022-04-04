@@ -203,8 +203,16 @@ class Screen2 extends StatelessWidget {
                               Provider.of<SignUpProvider>(context,
                                   listen: false);
                           Get.toNamed('/screen3');
-                          box.put('teamName', _provider.teamname.isEmpty ? _teamName : _provider.teamname);
-                          box.put('teamSize', _provider.teamsize.isEmpty ? _teamSize : _provider.teamsize);
+                          box.put(
+                              'teamName',
+                              _provider.teamname.isEmpty
+                                  ? _teamName
+                                  : _provider.teamname);
+                          box.put(
+                              'teamSize',
+                              _provider.teamsize.isEmpty
+                                  ? _teamSize
+                                  : _provider.teamsize);
                         },
                         child: Container(
                           width: _width * 0.05,
