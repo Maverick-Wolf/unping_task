@@ -4,6 +4,7 @@
 - Easy to navigate UI/UX.
 - Efficient state management using provider.
 - Use of Hive data boxes so users can continue the signUp from the same point whever they want.
+- Link of video recoding -> **[Link](https://drive.google.com/file/d/1XyweFDw-SWhwAv5WwOceFcEZ9Irw_5Dt/view?usp=sharing)**
 
 ## Tech and Packages used
 - Dart - Dart is a programming language designed for client development
