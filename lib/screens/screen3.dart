@@ -15,6 +15,10 @@ class Screen3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var box = Hive.box('dataBox');
+    String? _firstName = box.get('firstName');
+    String? _lastName = box.get('lastName');
+     String? _teamSize = box.get('teamSize');
+    String? _teamName = box.get('teamName');
     String? _houseNumber = box.get('houseNumber');
     String? _streetAddress = box.get('streetAddress');
     String? _city = box.get('city');
@@ -235,34 +239,45 @@ class Screen3 extends StatelessWidget {
                           SignUpProvider _provider =
                               Provider.of<SignUpProvider>(context,
                                   listen: false);
-                          box.put('houseNumber', _provider.housenumber.isEmpty ? _houseNumber : _provider.housenumber);
-                          box.put('streetAddress', _provider.streetaddress.isEmpty ? _streetAddress : _provider.streetaddress);
-                          box.put('city', _provider.city.isEmpty ? _city : _provider.city);
-                          box.put('zipcode', _provider.zipcode.isEmpty ? _zipcode : _provider.zipcode);
-                          SignUpBody _userBody = SignUpBody(
-                              firstname: _provider.firstname,
-                              lastname: _provider.lastname,
-                              role: _provider.roleincompany,
-                              teamname: _provider.teamname,
-                              teamsize: _provider.teamsize,
-                              industry: _provider.industry,
-                              housenumber: _provider.housenumber,
-                              streetaddress: _provider.streetaddress,
-                              city: _provider.city,
-                              zipcode: _provider.zipcode);
+                          box.put(
+                              'houseNumber',
+                              _provider.housenumber.isEmpty
+                                  ? _houseNumber
+                                  : _provider.housenumber);
+                          box.put(
+                              'streetAddress',
+                              _provider.streetaddress.isEmpty
+                                  ? _streetAddress
+                                  : _provider.streetaddress);
+                          box.put('city',
+                              _provider.city.isEmpty ? _city : _provider.city);
+                          box.put(
+                              'zipcode',
+                              _provider.zipcode.isEmpty
+                                  ? _zipcode
+                                  : _provider.zipcode);
+                          Map _userBody = SignUpBody(
+                                  firstname: _firstName ?? _provider.firstname,
+                                  lastname: _lastName ?? _provider.lastname,
+                                  role: _provider.roleincompany,
+                                  teamname: _teamName ?? _provider.teamname,
+                                  teamsize: _teamSize ?? _provider.teamsize,
+                                  industry: _provider.industry,
+                                  housenumber: _houseNumber ?? _provider.housenumber,
+                                  streetaddress: _streetAddress ?? _provider.streetaddress,
+                                  city: _city ?? _provider.city,
+                                  zipcode: _zipcode ?? _provider.zipcode)
+                              .toJson();
                           var body = json.encode({
-                            'data': [
-                              {"uniqueUserID": _userBody}
-                            ]
+                            'users': {"uniqueUserID": _userBody},
                           });
                           var response = await http.post(
                               Uri.parse(
                                   'https://jsonplaceholder.typicode.com/posts'),
                               body: body,
                               headers: {'Content-type': 'application/json'});
-                          if(response.statusCode == 201){
+                          if (response.statusCode == 201) {
                             Get.offAllNamed("/screen4");
-
                           }
                         },
                         child: Container(
